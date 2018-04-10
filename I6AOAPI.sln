@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2009
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I6AOAPI", "I6AOAPI\I6AOAPI.csproj", "{A0FC3B6A-414A-4F71-BAF4-C1D79523C9E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I6AOAPI.Tests", "I6AOAPI.Tests\I6AOAPI.Tests.csproj", "{DFCC5A42-2E71-446F-B109-4D5BA20DBF32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0FC3B6A-414A-4F71-BAF4-C1D79523C9E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0FC3B6A-414A-4F71-BAF4-C1D79523C9E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0FC3B6A-414A-4F71-BAF4-C1D79523C9E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0FC3B6A-414A-4F71-BAF4-C1D79523C9E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFCC5A42-2E71-446F-B109-4D5BA20DBF32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFCC5A42-2E71-446F-B109-4D5BA20DBF32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFCC5A42-2E71-446F-B109-4D5BA20DBF32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFCC5A42-2E71-446F-B109-4D5BA20DBF32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F1223665-BF19-45AB-8CBC-87CE65876CC8}
+	EndGlobalSection
+EndGlobal
