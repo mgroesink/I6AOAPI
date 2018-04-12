@@ -27,29 +27,53 @@ namespace DemoWebAPI2.Controllers
         }
 
         // GET: api/People
+        /// <summary>
+        /// Gets a list of teachers.
+        /// </summary>
+        /// <returns></returns>
         public List<Teacher> Get()
         {
             return teachers;
         }
 
         // GET: api/People/5
+        /// <summary>
+        /// Gets info about one teacher.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="code">The code.</param>
+        /// <returns></returns>
         public Teacher Get(int id , string code)
         {
             return teachers.FirstOrDefault(p => p.Id == id);
         }
 
         // POST: api/People
+        /// <summary>
+        /// Adds a new teacher.
+        /// </summary>
+        /// <param name="value">The value.</param>
         public void Post(Teacher value)
         {
             teachers.Add(value);
         }
 
         // PUT: api/People/5
+        /// <summary>
+        /// Updates the specified teacher.
+        /// </summary>
+        /// <param name="teacher">The teacher.</param>
+        /// <returns></returns>
         public void Put(int id, [FromBody]string value)
         {
         }
 
         // DELETE: api/People/5
+        /// <summary>
+        /// Deletes the specified teacher.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        [Authorize]
         public void Delete(int id)
         {
         }

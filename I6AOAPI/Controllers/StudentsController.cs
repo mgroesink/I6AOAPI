@@ -17,6 +17,11 @@ namespace I6AOAPI.Controllers
         private DB_A2A0BC_i6aoEntities db = new DB_A2A0BC_i6aoEntities();
 
         // GET: api/Students
+        /// <summary>
+        /// Gets a list of students in the same class.
+        /// </summary>
+        /// <param name="snr">The SNR.</param>
+        /// <returns></returns>
         public List<getStudentsByClass_Result> GetStudents(string snr)
         {
             string studentClass = db.Students.FirstOrDefault(s => s.StudentNr == snr).Class;
@@ -24,6 +29,12 @@ namespace I6AOAPI.Controllers
         }
 
         // GET: api/Students/5
+        /// <summary>
+        /// Gets info about the specified student.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="code">The code.</param>
+        /// <returns></returns>
         [ResponseType(typeof(Student))]
         public IHttpActionResult GetStudent(string id , string code)
         {
@@ -37,6 +48,12 @@ namespace I6AOAPI.Controllers
         }
 
         // PUT: api/Students/5
+        /// <summary>
+        /// Adds a new student.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="student">The student.</param>
+        /// <returns></returns>
         [ResponseType(typeof(void))]
         public IHttpActionResult PutStudent(string id, Student student)
         {
@@ -72,6 +89,11 @@ namespace I6AOAPI.Controllers
         }
 
         // POST: api/Students
+        /// <summary>
+        /// Update the specified student.
+        /// </summary>
+        /// <param name="student">The student.</param>
+        /// <returns></returns>
         [ResponseType(typeof(Student))]
         public IHttpActionResult PostStudent(Student student)
         {
@@ -102,7 +124,13 @@ namespace I6AOAPI.Controllers
         }
 
         // DELETE: api/Students/5
+        /// <summary>
+        /// Deletes the specified student.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [ResponseType(typeof(Student))]
+        [Authorize]
         public IHttpActionResult DeleteStudent(string id)
         {
             Student student = db.Students.Find(id);
