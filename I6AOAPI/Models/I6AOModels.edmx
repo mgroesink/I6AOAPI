@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DB_A2A0BC_i6aoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DB_A2A0BC_i6aoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Students">
           <Key>
             <PropertyRef Name="StudentNr" />
@@ -35,7 +35,8 @@
         <EntityContainer Name="DB_A2A0BC_i6aoModelStoreContainer">
           <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DB_A2A0BC_i6aoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -60,13 +61,13 @@
           <Property Name="Animal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="DB_A2A0BC_i6aoEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="Students" EntityType="DB_A2A0BC_i6aoModel.Student" />
           <FunctionImport Name="getStudentInfo" ReturnType="Collection(DB_A2A0BC_i6aoModel.getStudentInfo_Result)">
             <Parameter Name="STDNR" Mode="In" Type="String" />
             <Parameter Name="CODE" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getStudentsByClass" ReturnType="Collection(DB_A2A0BC_i6aoModel.getStudentsByClass_Result)">
-          <Parameter Name="CLASS" Mode="In" Type="String" />
+            <Parameter Name="CLASS" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="getStudentInfo_Result">
@@ -103,7 +104,6 @@
           <EntitySetMapping Name="Students">
             <EntityTypeMapping TypeName="DB_A2A0BC_i6aoModel.Student">
               <MappingFragment StoreEntitySet="Students">
-                <ScalarProperty Name="Animal" ColumnName="Animal" />
                 <ScalarProperty Name="StudentNr" ColumnName="StudentNr" />
                 <ScalarProperty Name="Class" ColumnName="Class" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -118,6 +118,7 @@
                 <ScalarProperty Name="BirthPlace" ColumnName="BirthPlace" />
                 <ScalarProperty Name="Education" ColumnName="Education" />
                 <ScalarProperty Name="Crebo" ColumnName="Crebo" />
+                <ScalarProperty Name="Animal" ColumnName="Animal" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -168,7 +169,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

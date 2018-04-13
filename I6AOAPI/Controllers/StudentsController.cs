@@ -16,16 +16,22 @@ namespace I6AOAPI.Controllers
     {
         private DB_A2A0BC_i6aoEntities db = new DB_A2A0BC_i6aoEntities();
 
-        // GET: api/Students
-        /// <summary>
-        /// Gets a list of students in the same class.
-        /// </summary>
-        /// <param name="snr">The SNR.</param>
-        /// <returns></returns>
-        public List<getStudentsByClass_Result> GetStudents(string snr)
+        //// GET: api/Students
+        ///// <summary>
+        ///// Gets a list of students in the same class.
+        ///// </summary>
+        ///// <param name="snr">The SNR.</param>
+        ///// <returns></returns>
+        //public List<getStudentsByClass_Result> GetStudents(string snr)
+        //{
+        //    string studentClass = db.Students.FirstOrDefault(s => s.StudentNr == snr).Class;
+        //    return db.getStudentsByClass(studentClass).ToList();
+        //}
+
+        public List<Student> GetStudents()
         {
-            string studentClass = db.Students.FirstOrDefault(s => s.StudentNr == snr).Class;
-            return db.getStudentsByClass(studentClass).ToList();
+            //string studentClass = db.Students.FirstOrDefault(s => s.StudentNr == snr).Class;
+            return db.Students.ToList();
         }
 
         // GET: api/Students/5

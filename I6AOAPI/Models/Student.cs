@@ -28,5 +28,6 @@ namespace I6AOAPI.Models
         public string BirthPlace { get; set; }
         public string Education { get; set; }
         public string Crebo { get; set; }
+        public string Animal { get; set; }
     }
 }
