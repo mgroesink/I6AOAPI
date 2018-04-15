@@ -10,16 +10,9 @@
 namespace I6AOAPI.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Student
+    public partial class getMyInfo_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Student()
-        {
-            this.Results = new HashSet<Result>();
-        }
-    
         public string StudentNr { get; set; }
         public string Class { get; set; }
         public string FirstName { get; set; }
@@ -29,14 +22,10 @@ namespace I6AOAPI.Models
         public string PostalCode { get; set; }
         public string Residence { get; set; }
         public Nullable<System.DateTime> BirthDate { get; set; }
-        public string Code { get; set; }
         public string Gender { get; set; }
         public string BirthPlace { get; set; }
         public string Education { get; set; }
         public string Crebo { get; set; }
         public string Animal { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Result> Results { get; set; }
     }
 }

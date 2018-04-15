@@ -28,6 +28,8 @@ namespace I6AOAPI.Models
         }
     
         public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<Result> Results { get; set; }
+        public virtual DbSet<Cours> Courses { get; set; }
     
         public virtual ObjectResult<getStudentInfo_Result> getStudentInfo(string sTDNR, string cODE)
         {
@@ -49,6 +51,28 @@ namespace I6AOAPI.Models
                 new ObjectParameter("CLASS", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getStudentsByClass_Result>("getStudentsByClass", cLASSParameter);
+        }
+    
+        public virtual ObjectResult<getMyInfo_Result> getMyInfo(string sTDNR, string cODE)
+        {
+            var sTDNRParameter = sTDNR != null ?
+                new ObjectParameter("STDNR", sTDNR) :
+                new ObjectParameter("STDNR", typeof(string));
+    
+            var cODEParameter = cODE != null ?
+                new ObjectParameter("CODE", cODE) :
+                new ObjectParameter("CODE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getMyInfo_Result>("getMyInfo", sTDNRParameter, cODEParameter);
+        }
+    
+        public virtual ObjectResult<getResults_Result> getResults(string sTUDENTNR)
+        {
+            var sTUDENTNRParameter = sTUDENTNR != null ?
+                new ObjectParameter("STUDENTNR", sTUDENTNR) :
+                new ObjectParameter("STUDENTNR", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getResults_Result>("getResults", sTUDENTNRParameter);
         }
     }
 }

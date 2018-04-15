@@ -5,6 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DB_A2A0BC_i6aoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="CourseCode" />
+          </Key>
+          <Property Name="CourseCode" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Results">
+          <Key>
+            <PropertyRef Name="StudentNr" />
+            <PropertyRef Name="CourseCode" />
+            <PropertyRef Name="ResultDate" />
+          </Key>
+          <Property Name="StudentNr" Type="char" MaxLength="7" Nullable="false" />
+          <Property Name="CourseCode" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="ResultDate" Type="date" Nullable="false" />
+          <Property Name="Result" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+        </EntityType>
         <EntityType Name="Students">
           <Key>
             <PropertyRef Name="StudentNr" />
@@ -25,6 +43,37 @@
           <Property Name="Crebo" Type="nchar" MaxLength="5" />
           <Property Name="Animal" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Results_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="Results" Type="Self.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseCode" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="CourseCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Results_Students">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="Results" Type="Self.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentNr" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="StudentNr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="getMyInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="STDNR" Type="nchar" Mode="In" />
+          <Parameter Name="CODE" Type="nchar" Mode="In" />
+        </Function>
+        <Function Name="getResults" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="STUDENTNR" Type="char" Mode="In" />
+        </Function>
         <Function Name="getStudentInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="STDNR" Type="nchar" Mode="In" />
           <Parameter Name="CODE" Type="nchar" Mode="In" />
@@ -33,7 +82,17 @@
           <Parameter Name="CLASS" Type="nchar" Mode="In" />
         </Function>
         <EntityContainer Name="DB_A2A0BC_i6aoModelStoreContainer">
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Results" EntityType="Self.Results" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Results_Courses" Association="Self.FK_Results_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Results_Students" Association="Self.FK_Results_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -58,6 +117,7 @@
           <Property Name="Education" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Crebo" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
           <Property Name="Animal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Results" Relationship="DB_A2A0BC_i6aoModel.FK_Results_Students" FromRole="Student" ToRole="Result" />
         </EntityType>
         <EntityContainer Name="DB_A2A0BC_i6aoEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Students" EntityType="Self.Student" />
@@ -67,6 +127,23 @@
           </FunctionImport>
           <FunctionImport Name="getStudentsByClass" ReturnType="Collection(DB_A2A0BC_i6aoModel.getStudentsByClass_Result)">
           <Parameter Name="CLASS" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Results" EntityType="DB_A2A0BC_i6aoModel.Result" />
+          <AssociationSet Name="FK_Results_Students" Association="DB_A2A0BC_i6aoModel.FK_Results_Students">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Result" EntitySet="Results" />
+          </AssociationSet>
+          <EntitySet Name="Courses" EntityType="DB_A2A0BC_i6aoModel.Cours" />
+          <AssociationSet Name="FK_Results_Courses" Association="DB_A2A0BC_i6aoModel.FK_Results_Courses">
+            <End Role="Cours" EntitySet="Courses" />
+            <End Role="Result" EntitySet="Results" />
+          </AssociationSet>
+          <FunctionImport Name="getMyInfo" ReturnType="Collection(DB_A2A0BC_i6aoModel.getMyInfo_Result)">
+            <Parameter Name="STDNR" Mode="In" Type="String" />
+            <Parameter Name="CODE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getResults" ReturnType="Collection(DB_A2A0BC_i6aoModel.getResults_Result)">
+            <Parameter Name="STUDENTNR" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="getStudentInfo_Result">
@@ -93,6 +170,74 @@
           <Property Type="String" Name="Residence" Nullable="true" MaxLength="75" />
           <Property Type="String" Name="Gender" Nullable="true" MaxLength="1" />
           <Property Type="String" Name="Education" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <EntityType Name="Result">
+          <Key>
+            <PropertyRef Name="StudentNr" />
+            <PropertyRef Name="CourseCode" />
+            <PropertyRef Name="ResultDate" />
+          </Key>
+          <Property Name="StudentNr" Type="String" Nullable="false" MaxLength="7" FixedLength="true" Unicode="false" />
+          <Property Name="CourseCode" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="ResultDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Score" Type="Decimal" Nullable="false" Precision="3" Scale="1" />
+          <NavigationProperty Name="Student" Relationship="DB_A2A0BC_i6aoModel.FK_Results_Students" FromRole="Result" ToRole="Student" />
+          <NavigationProperty Name="Cours" Relationship="DB_A2A0BC_i6aoModel.FK_Results_Courses" FromRole="Result" ToRole="Cours" />
+        </EntityType>
+        <Association Name="FK_Results_Students">
+          <End Type="DB_A2A0BC_i6aoModel.Student" Role="Student" Multiplicity="1" />
+          <End Type="DB_A2A0BC_i6aoModel.Result" Role="Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentNr" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="StudentNr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Cours">
+          <Key>
+            <PropertyRef Name="CourseCode" />
+          </Key>
+          <Property Name="CourseCode" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Results" Relationship="DB_A2A0BC_i6aoModel.FK_Results_Courses" FromRole="Cours" ToRole="Result" />
+        </EntityType>
+        <Association Name="FK_Results_Courses">
+          <End Type="DB_A2A0BC_i6aoModel.Cours" Role="Cours" Multiplicity="1" />
+          <End Type="DB_A2A0BC_i6aoModel.Result" Role="Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cours">
+              <PropertyRef Name="CourseCode" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="CourseCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="getMyInfo_Result">
+          <Property Type="String" Name="StudentNr" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Class" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="75" />
+          <Property Type="String" Name="PostalCode" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Residence" Nullable="true" MaxLength="75" />
+          <Property Type="DateTime" Name="BirthDate" Nullable="true" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="BirthPlace" Nullable="true" MaxLength="75" />
+          <Property Type="String" Name="Education" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Crebo" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="Animal" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="getResults_Result">
+          <Property Type="String" Name="StudentNr" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="CourseCode" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="ResultDate" Nullable="false" />
+          <Property Type="Decimal" Name="Result" Nullable="false" Precision="3" Scale="1" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -151,6 +296,55 @@
                 <ScalarProperty Name="Residence" ColumnName="Residence" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="Education" ColumnName="Education" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Results">
+            <EntityTypeMapping TypeName="DB_A2A0BC_i6aoModel.Result">
+              <MappingFragment StoreEntitySet="Results">
+                <ScalarProperty Name="Score" ColumnName="Result" />
+                <ScalarProperty Name="ResultDate" ColumnName="ResultDate" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+                <ScalarProperty Name="StudentNr" ColumnName="StudentNr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="DB_A2A0BC_i6aoModel.Cours">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="getMyInfo" FunctionName="DB_A2A0BC_i6aoModel.Store.getMyInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A2A0BC_i6aoModel.getMyInfo_Result">
+                <ScalarProperty Name="StudentNr" ColumnName="StudentNr" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Residence" ColumnName="Residence" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthPlace" ColumnName="BirthPlace" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="Crebo" ColumnName="Crebo" />
+                <ScalarProperty Name="Animal" ColumnName="Animal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getResults" FunctionName="DB_A2A0BC_i6aoModel.Store.getResults">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A2A0BC_i6aoModel.getResults_Result">
+                <ScalarProperty Name="StudentNr" ColumnName="StudentNr" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ResultDate" ColumnName="ResultDate" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

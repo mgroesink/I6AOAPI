@@ -12,29 +12,16 @@ namespace I6AOAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Student
+    public partial class Cours
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Student()
+        public Cours()
         {
             this.Results = new HashSet<Result>();
         }
     
-        public string StudentNr { get; set; }
-        public string Class { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public string Address { get; set; }
-        public string PostalCode { get; set; }
-        public string Residence { get; set; }
-        public Nullable<System.DateTime> BirthDate { get; set; }
-        public string Code { get; set; }
-        public string Gender { get; set; }
-        public string BirthPlace { get; set; }
-        public string Education { get; set; }
-        public string Crebo { get; set; }
-        public string Animal { get; set; }
+        public string CourseCode { get; set; }
+        public string Title { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Result> Results { get; set; }

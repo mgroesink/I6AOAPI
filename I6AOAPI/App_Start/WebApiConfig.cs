@@ -17,7 +17,7 @@ namespace I6AOAPI
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}/{code}",
-                defaults: new { id = RouteParameter.Optional , code = RouteParameter.Optional }
+                defaults: new {code = RouteParameter.Optional }
             );
         }
     }
